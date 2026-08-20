@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+  <title>Student Profile - Euan Jorn Dy Mercado</title>
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --card-bg: #1f2833;
+      --accent: #66fcf1;
+      --text: #ffffff;
+      --text-muted: #c5c6c7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text);
+      padding-bottom: 70px;
+    }
+
+    /* Header */
+    header {
+      background-color: var(--card-bg);
+      text-align: center;
+      padding: 2.5rem 1rem 1.5rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Navigation Menu */
+    nav {
+      margin-top: 1.2rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: var(--bg-color);
+      background-color: var(--accent);
+      padding: 0.4rem 1.2rem;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.85rem;
+    }
+
+    /* Content Sections */
+    section {
+      max-width: 500px;
+      margin: 1.5rem auto;
+      padding: 1.2rem;
+      background-color: var(--card-bg);
+      border-radius: 8px;
+      transition: transform 0.3s ease, border-color 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    /* CSS Interaction: Highlights section when nav button is clicked */
+    section:target {
+      border-color: var(--accent);
+      transform: scale(1.02);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.3rem;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .sub-group {
+      margin-top: 0.8rem;
+    }
+
+    .sub-group h3 {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-top: 0.5rem;
+    }
+
+    /* Skills Grid */
+    .skill-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.6rem;
+      margin-top: 0.5rem;
+      border-radius: 5px;
+    }
+
+    .skill-card h4 {
+      color: var(--accent);
+      font-size: 0.9rem;
+    }
+
+    .skill-card p {
+      margin-bottom: 0;
+      font-size: 0.8rem;
+    }
+
+    /* Footer */
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: var(--card-bg);
+      text-align: center;
+      padding: 0.8rem;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border-top: 1px solid #333;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Euan Jorn Dy Mercado</h1>
+    <p>About Myself</p>
+    
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+    </nav>
+  </header>
+
+  <section id="about">
+    <h2>About Section</h2>
+    <p>I am an Information Technology student specializing in mobile application development. I focus on creating intuitive user experiences and efficient mobile software solutions.</p>
+    <p>Outside of academic coursework, I actively explore cross-platform frameworks, minimalist mobile UI design, and continuous development practices.</p>
+
+    <div class="sub-group">
+      <h3>Interests</h3>
+      <p>Mobile App Engineering, User Interface Design, Tech Gadgets, Open Source Software.</p>
+
+      <h3>Educational Background</h3>
+      <p>Bachelor of Science in Information Technology (BSIT) — Mobile Application Track.</p>
+
+      <h3>Goals & Aspirations</h3>
+      <p>To launch cross-platform applications globally and work as a lead mobile developer.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills Section</h2>
+    
+    <div class="skill-card">
+      <h4>1. HTML5 & CSS3</h4>
+      <p>Building structured web standard markup and modern responsive mobile views without external UI frameworks.</p>
+    </div>
+
+    <div class="skill-card">
+      <h4>2. Apache Cordova</h4>
+      <p>Packaging web applications into native Android binaries for mobile installation.</p>
+    </div>
+
+    <div class="skill-card">
+      <h4>3. JavaScript Fundamentals</h4>
+      <p>Implementing dynamic application client behavior and device interaction handlers.</p>
+    </div>
+
+    <div class="skill-card">
+      <h4>4. Git & Version Control</h4>
+      <p>Managing project history, code revisions, and remote deployment pipelines on GitHub.</p>
+    </div>
+
+    <div class="skill-card">
+      <h4>5. Mobile UI/UX Design</h4>
+      <p>Designing interfaces optimized specifically for touch devices and small viewports.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Euan Jorn Dy Mercado. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
