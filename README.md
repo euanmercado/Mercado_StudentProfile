@@ -34,6 +34,7 @@ Navigation uses pure CSS fragment anchors (`#about` and `#skills`) paired with `
 ```bash
 cordova platform add android
 cordova run android
+```
 
 ## 7. Application Screenshots
 
