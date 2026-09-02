@@ -1,118 +1,274 @@
-/**
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
-
-        http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
-*/
-
-* {
-    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
-    box-sizing: border-box;
-}
-
-html {
-    overscroll-behavior: none;
-}
-
-body {
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
-    background-color:#E4E4E4;
-    background-image:linear-gradient(to bottom, #A7A7A7 0%, #E4E4E4 51%);
-    font-family: system-ui, -apple-system, -apple-system-font, 'Segoe UI', 'Roboto', sans-serif;
-    font-size:12px;
-    height:100vh;
-    margin:0px;
-    padding:0px;
-    /* Padding to avoid the "unsafe" areas behind notches in the screen */
-    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
-    text-size-adjust: none;
-    text-transform:uppercase;
-    user-select: none;
-    width:100%;
-}
-
-/* Portrait layout (default) */
-.app {
-    background:url(../img/logo.png) no-repeat center top; /* 170px x 200px */
-    position:absolute;             /* position in the center of the screen */
-    left:50%;
-    top:50%;
-    height:50px;                   /* text area height */
-    width:225px;                   /* text area width */
-    text-align:center;
-    padding:180px 0px 0px 0px;     /* image height is 200px (bottom 20px are overlapped with text) */
-    margin:-115px 0px 0px -112px;  /* offset vertical: half of image height and text area height */
-                                   /* offset horizontal: half of text area width */
-}
-
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-        background-position:left center;
-        padding:75px 0px 75px 170px;  /* padding-top + padding-bottom + text area = image height */
-        margin:-90px 0px 0px -198px;  /* offset vertical: half of image height */
-                                      /* offset horizontal: half of image width and text area width */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Student Profile</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --accent: #38bdf8;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --border: #334155;
     }
-}
 
-h1 {
-    font-size:24px;
-    font-weight:normal;
-    margin:0px;
-    overflow:visible;
-    padding:0px;
-    text-align:center;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
 
-.event {
-    border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
-}
-
-.event.listening {
-    background-color:#333333;
-    display:block;
-}
-
-.event.received {
-    background-color:#4B946A;
-    display:none;
-}
-
-#deviceready.ready .event.listening { display: none; }
-#deviceready.ready .event.received { display: block; }
-
-@keyframes fade {
-    from { opacity: 1.0; }
-    50% { opacity: 0.4; }
-    to { opacity: 1.0; }
-}
-
-.blink {
-    -webkit-animation:fade 3000ms infinite;
-    animation:fade 3000ms infinite;
-}
-
-
-@media screen and (prefers-color-scheme: dark) {
     body {
-        background-image:linear-gradient(to bottom, #585858 0%, #1B1B1B 51%);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 70px;
     }
-}
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 1rem 0;
+    }
+
+    header {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .profile-img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      object-fit: cover;
+      margin-bottom: 0.8rem;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      color: var(--text);
+    }
+
+    .subtitle {
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    nav a {
+      color: var(--bg);
+      background-color: var(--accent);
+      padding: 0.6rem 1.4rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      transition: opacity 0.2s ease;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    nav a:hover, nav a:focus {
+      opacity: 0.85;
+      outline: 2px solid var(--text);
+    }
+
+    section {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:target {
+      border-color: var(--accent);
+      box-shadow: 0 0 15px rgba(56, 189, 248, 0.2);
+    }
+
+    h2 {
+      color: var(--accent);
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.4rem;
+    }
+
+    p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+
+    .sub-block {
+      background: rgba(15, 23, 42, 0.4);
+      padding: 0.9rem;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      margin-top: 1rem;
+    }
+
+    .sub-block h3 {
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .skill-card {
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+    }
+
+    .skill-card h4 {
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .skill-card p {
+      margin-bottom: 0;
+      font-size: 0.85rem;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background-color: var(--card-bg);
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    /* Tablet (min-width: 600px) */
+    @media (min-width: 600px) {
+      header h1 { font-size: 1.8rem; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      section { padding: 2rem; }
+    }
+
+    /* Desktop (min-width: 900px) */
+    @media (min-width: 900px) {
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+      }
+
+      .header-info {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .profile-img { margin-bottom: 0; }
+      nav { margin-top: 0; }
+      .skills-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="header-info">
+        <img src="https://via.placeholder.com/110" alt="Student Profile Picture" class="profile-img">
+        <div>
+          <h1>Euan Jorn Dy Mercado</h1>
+          <p class="subtitle">About Myself</p>
+        </div>
+      </div>
+      <nav aria-label="Main Navigation">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+      </nav>
+    </header>
+
+    <main>
+      <section id="about">
+        <h2>About Section</h2>
+        <p>I am an Information Technology student specializing in mobile application engineering. My focus is centered on creating intuitive user interfaces, optimizing client performance, and mastering modern web-to-native development toolchains.</p>
+        <p>Beyond classroom activities, I enjoy exploring responsive web architecture, staying up-to-date with emerging mobile ecosystems, and designing dark-mode user interface patterns for seamless accessibility.</p>
+
+        <div class="sub-block">
+          <h3>Interests</h3>
+          <p>Mobile Development, UI/UX Prototyping, Open Source Tools, Cloud Hosting.</p>
+        </div>
+
+        <div class="sub-block">
+          <h3>Educational Background</h3>
+          <p>Bachelor of Science in Information Technology (BSIT) — Mobile Application Track.</p>
+        </div>
+
+        <div class="sub-block">
+          <h3>Goals & Aspirations</h3>
+          <p>To design scalable mobile applications and become a versatile full-stack mobile systems engineer.</p>
+        </div>
+      </section>
+
+      <section id="skills">
+        <h2>Skills Section</h2>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <h4>1. Responsive CSS & Media Queries</h4>
+            <p>Designing mobile-first layouts that adapt seamlessly across phone, tablet, and desktop viewports.</p>
+          </div>
+          <div class="skill-card">
+            <h4>2. Apache Cordova</h4>
+            <p>Packaging web assets into native mobile binaries for Android deployment.</p>
+          </div>
+          <div class="skill-card">
+            <h4>3. HTML5 & Semantic Elements</h4>
+            <p>Structuring accessible, SEO-friendly, and well-organized DOM content hierarchies.</p>
+          </div>
+          <div class="skill-card">
+            <h4>4. Git & GitHub Workflows</h4>
+            <p>Managing codebase versions, branches, commit logs, and remote documentation repository releases.</p>
+          </div>
+          <div class="skill-card">
+            <h4>5. UI/UX Accessibility</h4>
+            <p>Applying high-contrast color themes, touch-target sizing, and clear visual information hierarchies.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Euan Jorn Dy Mercado. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
