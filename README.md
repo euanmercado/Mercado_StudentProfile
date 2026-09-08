@@ -32,20 +32,20 @@ cordova platform add android
 cordova run android
 ```
 
-## 7. Application Screenshots
+### 7. Application Screenshots
 
 ### Profile Page
-![Profile Page](./Screenshots/profile.png)
+![Profile Page](./Screenshots/profile.png?v=2)
 
 ### About Page
-![About Page](./Screenshots/about.png)
+![About Page](./Screenshots/about.png?v=2)
 
 ### Skills Page
-![Skills Page](./Screenshots/skills.png)
+![Skills Page](./Screenshots/skills.png?v=2)
 
 ### Projects Page
-![Projects Page](./Screenshots/projects.png)
+![Projects Page](./Screenshots/projects.png?v=2)
 
 ### Contact Page
-![Contact Page](./Screenshots/contact.png)
+![Contact Page](./Screenshots/contact.png?v=2)
 
