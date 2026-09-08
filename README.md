@@ -1,34 +1,30 @@
 # Mercado_StudentProfile
 
-A responsive mobile-first student profile web application packaged with Apache Cordova for ITCC 41.
+A multi-page responsive student profile web application packaged with Apache Cordova for ITCC 41.
 
 ## 1. Project Description
-This Student Profile application displays personal details, interests, educational background, and technical skills. It has been enhanced using modern responsive CSS techniques and Mobile UI/UX principles to ensure optimal layout readability across mobile, tablet, and desktop viewports.
+This application serves as a comprehensive multi-page Student Profile showcasing personal information, detailed background, technical competencies, previous projects, and contact details.
 
-## 2. Application Structure
-* **Header:** Displays the student's profile picture, full name, subtitle ("About Myself"), and navigation menu.
-* **Navigation Menu:** Provides quick-access links to smooth-scroll directly to major content sections on the page.
-* **About Section:** Details personal introductions, interests, educational background, and future aspirations.
-* **Skills Section:** Features a grid displaying five core technical competencies with descriptions.
-* **Footer:** Displays copyright details, student name, and the current year (2026).
+## 2. Application Pages
+* **Profile (`index.html`):** Homepage serving as the primary entry point with profile summary and main branding.
+* **About (`about.html`):** Personal background, interests, educational experience, and future career goals.
+* **Skills (`skills.html`):** Technical competencies broken down into key skill categories.
+* **Projects (`projects.html`):** Showcase of 3 featured projects including descriptions, developer roles, and tech stacks.
+* **Contact (`contact.html`):** Direct contact channels and interactive form mockup.
 
-## 3. Responsive Design
-The application uses a mobile-first responsive design strategy implemented via CSS Flexbox, CSS Grid, and CSS `@media` queries:
-* **Mobile Layout (<600px):** Single-column stacked cards, compact touch-friendly padding, and centered header items.
-* **Tablet Layout (600px - 899px):** Two-column skills grid and expanded section padding.
-* **Desktop Layout (≥900px):** Side-by-side header row, max-width content container (1000px), and a three-column skills grid.
+## 3. Navigation
+Navigation is handled using standard HTML hyperlink tags (`<a href="...">`) embedded across a uniform navigation bar on all 5 pages. No JavaScript is used for routing or rendering.
 
-## 4. UI/UX Principles Applied
-* **Responsive Layout:** Eliminates horizontal scrollbars and text truncation across all screen sizes.
-* **Mobile-Friendly Spacing:** Standardized rem-based padding and margins to prevent cramped elements on small viewports.
-* **Appropriate Typography:** Uses scalable font sizes (`system-ui` font stack) with defined line heights for readability.
-* **Clear Visual Hierarchy:** Distinct color accents (`#38bdf8`) highlight section titles, sub-headings, and primary actions.
-* **Usable Controls:** Touch targets meet minimum height guidelines with distinct hover/focus states.
-* **Basic Accessibility:** High-contrast dark theme, `alt` text on images, and semantic HTML tag usage.
-* **Consistent Design:** Uniform color palette, border radius styles, and typography variables applied throughout.
+## 4. Responsive Design
+All five application screens are fully responsive across target viewports:
+* **Mobile (<600px):** Single-column stacked layouts and touch-friendly navigation elements.
+* **Tablet (600px - 899px):** Balanced multi-column arrangements.
+* **Desktop (≥900px):** Constrained layout width (1000px max) with expanded multi-column grids.
 
-## 5. Navigation
-Navigation uses pure CSS fragment anchors (`#about` and `#skills`) paired with `:target` pseudo-class highlighting. No JavaScript is used for layout responsiveness or routing.
+## 5. UI/UX Principles Applied
+* **Visual Consistency:** Shared CSS styling (`css/index.css`), color hierarchy, and typography across all pages.
+* **Clear Usability:** Persistent top navigation bar allows users to switch pages or return home at any time.
+* **Accessibility:** High-contrast text elements, form labeling, and semantic HTML markup.
 
 ## 6. How to Run
 ```bash
@@ -38,11 +34,17 @@ cordova run android
 
 ## 7. Application Screenshots
 
-### Desktop Layout
-![Desktop Layout](./Screenshots/Desktop.png)
+### Profile Page
 
-### Tablet Layout
-![Tablet Layout](./Screenshots/Tablet.png)
 
-### Mobile Layout
-![Mobile Layout](./Screenshots/Mobile.png)
+### About Page
+
+
+### Skills Page
+
+
+### Project Page
+
+
+### Contact Page 
+
