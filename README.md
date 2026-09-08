@@ -35,16 +35,17 @@ cordova run android
 ## 7. Application Screenshots
 
 ### Profile Page
-
+![Profile Page](./Screenshots/profile.png)
 
 ### About Page
-
+![About Page](./Screenshots/about.png)
 
 ### Skills Page
+![Skills Page](./Screenshots/skills.png)
 
+### Projects Page
+![Projects Page](./Screenshots/projects.png)
 
-### Project Page
-
-
-### Contact Page 
+### Contact Page
+![Contact Page](./Screenshots/contact.png)
 
