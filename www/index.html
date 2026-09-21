@@ -14,11 +14,64 @@
     <a href="projects.html">Projects</a>
     <a href="contact.html">Contact</a>
   </nav>
-  <main style="text-align: center;">
-    <img src="img/profile.jpeg" alt="Euan Jorn Dy Mercado" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #38bdf8; margin-bottom: 15px;">
-    <h1>Euan Jorn Dy Mercado</h1>
-    <p style="color: #38bdf8; font-weight: bold; font-size: 1.1em; margin-top: -10px;">Information Technology Student</p>
-    <p>Welcome to my student profile application. Use the navigation bar above to explore my background, technical skills, projects, and contact information.</p>
+
+  <main>
+    <!-- Profile Display View -->
+    <div id="profile-view" style="text-align: center;">
+      <img src="img/profile.jpeg" alt="Profile Picture" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 3px solid #38bdf8; margin-bottom: 15px;">
+      <h1 id="display-name"></h1>
+      <p id="display-course-year" style="color: #38bdf8; font-weight: bold; font-size: 1.1em; margin-top: -10px;"></p>
+      
+      <div style="text-align: left; margin-top: 20px;">
+        <h3>About</h3>
+        <p id="display-about"></p>
+        
+        <h3>Skills</h3>
+        <ul id="display-skills"></ul>
+      </div>
+
+      <button id="btn-edit" style="margin-top: 20px;">Edit Profile</button>
+    </div>
+
+    <!-- Edit Profile Form View -->
+    <div id="edit-view" style="display: none;">
+      <h1>Edit Profile</h1>
+      <div id="error-message" style="display: none; background-color: #ef4444; color: white; padding: 10px; border-radius: 6px; margin-bottom: 15px;"></div>
+      
+      <form id="edit-form">
+        <div style="margin-bottom: 15px;">
+          <label for="input-name">Full Name *</label>
+          <input type="text" id="input-name">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <label for="input-course">Course *</label>
+          <input type="text" id="input-course">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <label for="input-year">Year Level *</label>
+          <input type="text" id="input-year">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <label for="input-about">About Me *</label>
+          <textarea id="input-about" rows="4"></textarea>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+          <label for="input-skills">Skills (comma-separated) *</label>
+          <input type="text" id="input-skills">
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="submit" id="btn-save">Save</button>
+          <button type="button" id="btn-cancel" style="background: #64748b; color: white;">Cancel</button>
+        </div>
+      </form>
+    </div>
   </main>
+
+  <script src="js/index.js"></script>
 </body>
 </html>

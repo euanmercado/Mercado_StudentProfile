@@ -1,51 +1,57 @@
 # Mercado_StudentProfile
 
-A multi-page responsive student profile web application packaged with Apache Cordova for ITCC 41.
+A multi-page responsive student profile web application with dynamic profile editing, localStorage persistence, and JavaScript validation, packaged with Apache Cordova for ITCC 41.
 
 ## 1. Project Description
-This application serves as a comprehensive multi-page Student Profile showcasing personal information, detailed background, technical competencies, previous projects, and contact details.
+This application serves as a multi-page Student Profile showcasing personal details, technical background, skills, projects, and contact information, upgraded with real-time profile editing.
 
 ## 2. Application Pages
-* **Profile (`index.html`):** Homepage serving as the primary entry point with profile summary and main branding.
-* **About (`about.html`):** Personal background, interests, educational experience, and future career goals.
-* **Skills (`skills.html`):** Technical competencies broken down into key skill categories.
-* **Projects (`projects.html`):** Showcase of 3 featured projects including descriptions, developer roles, and tech stacks.
-* **Contact (`contact.html`):** Direct contact channels and interactive form mockup.
+* **Profile (`index.html`):** Main entry point displaying profile data with an interactive Edit Profile interface.
+* **About (`about.html`):** Personal background, interests, and educational goals.
+* **Skills (`skills.html`):** Overview of technical competencies and programming tools.
+* **Projects (`projects.html`):** Portfolio showcasing previous development projects.
+* **Contact (`contact.html`):** Direct contact options and interactive form layout.
 
-## 3. Navigation
-Navigation is handled using standard HTML hyperlink tags (`<a href="...">`) embedded across a uniform navigation bar on all 5 pages. No JavaScript is used for routing or rendering.
+## 3. Profile Editing
+The Profile page includes an Edit Profile view that allows users to modify:
+* Full Name
+* Course / Program
+* Year Level
+* About Me text
+* Listed Skills
 
-## 4. Responsive Design
-All five application screens are fully responsive across target viewports:
-* **Mobile (<600px):** Single-column stacked layouts and touch-friendly navigation elements.
-* **Tablet (600px - 899px):** Balanced multi-column arrangements.
-* **Desktop (≥900px):** Constrained layout width (1000px max) with expanded multi-column grids.
+## 4. JavaScript Functionality
+* **Form Handling:** Intercepts submission events to process data dynamically without browser reloads.
+* **Validation:** Prevents saving empty fields and displays feedback if required inputs are missing.
+* **Profile Updates:** Instantly updates DOM elements upon saving.
+* **Save & Cancel:** The Save button commits validated data, while Cancel discards pending changes and restores original profile values.
 
-## 5. UI/UX Principles Applied
-* **Visual Consistency:** Shared CSS styling (`css/index.css`), color hierarchy, and typography across all pages.
-* **Clear Usability:** Persistent top navigation bar allows users to switch pages or return home at any time.
-* **Accessibility:** High-contrast text elements, form labeling, and semantic HTML markup.
+## 5. Local Data Storage
+* Uses `localStorage` to store serialized profile data under the `studentProfile` key.
+* Automatically loads saved data on application start, falling back to default values when no saved profile exists.
 
-## 6. How to Run
+## 6. Responsive Design
+The application layout dynamically adapts across all device viewports:
+* **Desktop (≥900px):** Constrained, centered container for maximum legibility.
+* **Tablet (600px - 899px):** Medium-width scaling and touch-friendly nav elements.
+* **Mobile (<600px):** Stacked single-column inputs and full-width buttons.
+
+## 7. How to Run
 ```bash
 cordova platform add android
 cordova run android
 ```
 
-### 7. Application Screenshots
+## 8. Application Screenshots
 
-### Profile Page
-![Profile Page](./Screenshots/profile.png?v=2)
+### Student Profile
+![Student Profile](./Screenshots/profile_m.png)
 
-### About Page
-![About Page](./Screenshots/about.png?v=2)
+### Edit Profile
+![Edit Profile](./Screenshots/edit_m.png)
 
-### Skills Page
-![Skills Page](./Screenshots/skills.png?v=2)
-
-### Projects Page
-![Projects Page](./Screenshots/projects.png?v=2)
+### Updated Profile
+![Updated Profile](./Screenshots/updated_m.png)
 
 ### Contact Page
-![Contact Page](./Screenshots/contact.png?v=2)
-
+![Contact Page](./Screenshots/contact.png)
