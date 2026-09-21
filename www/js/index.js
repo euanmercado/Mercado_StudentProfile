@@ -2,7 +2,7 @@ const DEFAULT_PROFILE = {
   fullName: "Euan Jorn Dy Mercado",
   course: "BS Information Technology",
   yearLevel: "3rd Year",
-  aboutMe: "Welcome to my student profile application. I am passionate about web and mobile software development.",
+  aboutMe: "Welcome to my student profile application. I am passionate about web and mobile software development. I love Football. I love Video Games. I love Motorcycles.",
   skills: "HTML5, CSS3, JavaScript, Cordova, Git",
   profileImage: "img/profile.jpeg"
 };
@@ -24,6 +24,10 @@ function renderProfile() {
   
   const photoEl = document.getElementById("display-photo");
   if (photoEl) {
+    // Graceful fallback if image is missing or corrupted
+    photoEl.onerror = function() {
+      this.src = "img/profile.jpeg";
+    };
     photoEl.src = profile.profileImage || "img/profile.jpeg";
   }
 
@@ -44,27 +48,29 @@ function captureProfilePicture() {
   }
 
   const cameraOptions = {
-    quality: 60,
-    destinationType: Camera.DestinationType.DATA_URL,
-    sourceType: Camera.PictureSourceType.CAMERA,
-    encodingType: Camera.EncodingType.JPEG,
-    mediaType: Camera.MediaType.PICTURE,
-    correctOrientation: true,
-    targetWidth: 400,
-    targetHeight: 400
+    quality: 50,
+    destinationType: navigator.camera.DestinationType.DATA_URL,
+    sourceType: navigator.camera.PictureSourceType.CAMERA,
+    encodingType: navigator.camera.EncodingType.JPEG,
+    targetWidth: 300,
+    targetHeight: 300,
+    correctOrientation: true
   };
 
   navigator.camera.getPicture(
     function onSuccess(imageData) {
-      const imageSrc = "data:image/jpeg;base64," + imageData;
+      if (!imageData) return;
+      let imageSrc = imageData;
+      if (!imageData.startsWith("data:image")) {
+        imageSrc = "data:image/jpeg;base64," + imageData;
+      }
       const profile = getProfileData();
       profile.profileImage = imageSrc;
       saveProfileData(profile);
       renderProfile();
     },
     function onError(message) {
-      if (message && (message.toLowerCase().includes("no image selected") || message.toLowerCase().includes("cancelled") || message.toLowerCase().includes("cancel"))) {
-        console.log("Camera operation cancelled by user.");
+      if (message && (message.toLowerCase().includes("cancelled") || message.toLowerCase().includes("cancel") || message.toLowerCase().includes("no image"))) {
         return;
       }
       alert("Unable to access the camera. Please check your device permissions.");
