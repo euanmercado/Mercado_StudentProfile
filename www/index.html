@@ -3,36 +3,73 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: content:;">
     <title>Student Profile App</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <div id="toast" class="toast hidden"></div>
 
-    <div class="app-container">
-        <div class="profile-card">
-            <div class="avatar-container">
-                <div class="avatar-ring">
-                    <img id="profile-img" src="img/default-avatar.png" alt="Profile Picture" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\' fill=\'%2338bdf8\'><circle cx=\'50\' cy=\'35\' r=\'20\'/><path d=\'M 20,80 C 20,60 35,55 50,55 C 65,55 80,60 80,80 Z\'/></svg>';">
+    <div id="login-page" class="page-view active">
+        <div class="login-card">
+            <h2>Student Login</h2>
+            <p class="subtitle">Access your protected Student Profile</p>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="login-id">Student ID / Email</label>
+                    <input type="text" id="login-id" placeholder="e.g. 2021-100451 or euan@xu.edu.ph" required>
                 </div>
-                <button id="btn-change-photo" class="btn-photo">Change Photo</button>
-            </div>
-
-            <h1 id="view-name">Euan Jorn Dy Mercado</h1>
-            <p id="view-course-year" class="tag">BS Information Technology - 3rd Year</p>
-            <p id="view-student-id" class="id-badge">ID: 2021-100451</p>
-
-            <div class="action-buttons">
-                <button id="btn-edit-profile" class="btn btn-primary">Edit Profile</button>
-                <button id="btn-crud-delete" class="btn btn-outline-danger">Delete Account (CRUD)</button>
+                <div class="input-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter password" required>
+                </div>
+                <div id="login-error" class="error-box hidden"></div>
+                <button type="submit" id="btn-login" class="btn btn-primary">Login</button>
+            </form>
+            <div class="demo-credentials">
+                <small><strong>Demo Account:</strong><br>ID: <code>2021-100451</code> | Pass: <code>password123</code></small>
             </div>
         </div>
     </div>
 
-    <!-- Edit Profile Modal -->
+    <div id="profile-page" class="page-view hidden">
+        <header class="app-header">
+            <h3>Student Profile</h3>
+            <button id="btn-logout" class="btn btn-danger-sm">Logout</button>
+        </header>
+
+        <main class="container">
+            <div class="profile-card">
+                <div class="avatar-wrapper">
+                    <img id="profile-img" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2338bdf8'><circle cx='50' cy='35' r='20'/><path d='M 20,80 C 20,60 35,55 50,55 C 65,55 80,60 80,80 Z'/></svg>" alt="Profile Picture">
+                    <button id="btn-change-photo" class="btn btn-secondary-sm">Change Photo</button>
+                </div>
+
+                <h1 id="view-name">Euan Jorn Dy Mercado</h1>
+                <p id="view-course-year" class="tag">BS Information Technology - 3rd Year</p>
+                <p id="view-student-id" class="id-badge">ID: 2021-100451</p>
+
+                <section class="section">
+                    <h3>About Me</h3>
+                    <p id="view-about">Passionate software development student specializing in mobile app engineering.</p>
+                </section>
+
+                <section class="section">
+                    <h3>Skills</h3>
+                    <ul id="view-skills" class="skills-list"></ul>
+                </section>
+
+                <div class="action-buttons">
+                    <button id="btn-edit-profile" class="btn btn-primary">Edit Profile</button>
+                    <button id="btn-crud-delete" class="btn btn-outline-danger">Delete Account (CRUD)</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
     <div id="edit-modal" class="modal hidden">
         <div class="modal-content">
-            <h2>Edit Profile</h2>
+            <h2>Edit Profile (Database)</h2>
             <form id="edit-form">
                 <div class="input-group">
                     <label for="edit-name">Name</label>
@@ -46,9 +83,18 @@
                     <label for="edit-year">Year Level</label>
                     <input type="text" id="edit-year" required>
                 </div>
+                <div class="input-group">
+                    <label for="edit-about">About Me</label>
+                    <textarea id="edit-about" rows="3" required></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="edit-skills">Skills (comma-separated)</label>
+                    <input type="text" id="edit-skills" required>
+                </div>
+                <div id="edit-error" class="error-box hidden"></div>
                 <div class="modal-actions">
                     <button type="button" id="btn-cancel-edit" class="btn btn-secondary">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                    <button type="submit" class="btn btn-primary">Save to Database</button>
                 </div>
             </form>
         </div>
