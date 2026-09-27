@@ -32,7 +32,8 @@ const DBEngine = {
             const store = tx.objectStore("students");
             const check = store.get("2021-100451");
             check.onsuccess = () => {
-                if (!check.result) {
+                const data = check.result;
+                if (!data || !data.profilePicture || data.profilePicture.includes("profile.jpeg")) {
                     store.put({
                         studentId: "2021-100451",
                         email: "euan@xu.edu.ph",
@@ -187,14 +188,19 @@ function showProfileView(student) {
     document.getElementById('view-about').textContent = student.about;
     document.getElementById('view-contact-email').textContent = student.email;
     document.getElementById('view-contact-id').textContent = student.studentId;
-    
+
     const imgElem = document.getElementById('profile-img');
-    if (student.profilePicture && student.profilePicture !== DEFAULT_AVATAR) {
-        imgElem.onerror = null;
-        imgElem.src = student.profilePicture;
-    } else {
-        imgElem.src = DEFAULT_AVATAR;
+    imgElem.onerror = function() {
+        this.onerror = null;
+        this.src = DEFAULT_AVATAR;
+    };
+
+    if (!student.profilePicture || student.profilePicture.includes("profile.jpeg")) {
+        student.profilePicture = DEFAULT_AVATAR;
+        DBEngine.saveStudent(student);
     }
+
+    imgElem.src = student.profilePicture;
 
     const skillsContainer = document.getElementById('view-skills');
     skillsContainer.innerHTML = '';
