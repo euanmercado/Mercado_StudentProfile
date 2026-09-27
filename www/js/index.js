@@ -3,7 +3,7 @@ if (!window.cordova) { document.addEventListener('DOMContentLoaded', onDeviceRea
 
 const DBEngine = {
     dbName: "StudentProfileDB",
-    dbVersion: 5,
+    dbVersion: 6, // Bumped to clear old database records cleanly
     db: null,
 
     init() {
@@ -114,32 +114,6 @@ function setupEventListeners() {
     document.getElementById('btn-cancel-edit').addEventListener('click', closeEditModal);
     document.getElementById('edit-form').addEventListener('submit', handleSaveProfile);
     document.getElementById('btn-crud-delete').addEventListener('click', handleDeleteAccount);
-
-    document.querySelectorAll('.nav-item').forEach(button => {
-        button.addEventListener('click', () => {
-            const targetTab = button.getAttribute('data-tab');
-            switchTab(targetTab);
-        });
-    });
-}
-
-function switchTab(tabName) {
-    document.querySelectorAll('.tab-content').forEach(content => {
-        content.classList.add('hidden');
-    });
-    document.querySelectorAll('.nav-item').forEach(nav => {
-        nav.classList.remove('active');
-    });
-
-    const selectedTab = document.getElementById(`tab-${tabName}`);
-    if (selectedTab) {
-        selectedTab.classList.remove('hidden');
-    }
-
-    const activeNav = document.querySelector(`.nav-item[data-tab="${tabName}"]`);
-    if (activeNav) {
-        activeNav.classList.add('active');
-    }
 }
 
 async function handleLogin(e) {
@@ -199,7 +173,7 @@ function renderAvatar(photoData) {
 
     if (photoData && photoData.startsWith('data:image/jpeg;base64,')) {
         container.innerHTML = `
-            <img id="profile-img" src="${photoData}" alt="Profile Picture">
+            <img id="profile-img" src="${photoData}" alt="Profile Photo">
             <button id="btn-change-photo" class="btn btn-secondary-sm">Change Photo</button>
         `;
     } else {
@@ -224,7 +198,6 @@ function showProfileView(student) {
     document.getElementById('view-student-id').textContent = `ID: ${student.studentId}`;
     document.getElementById('view-about').textContent = student.about;
     document.getElementById('view-contact-email').textContent = student.email;
-    document.getElementById('view-contact-id').textContent = student.studentId;
 
     renderAvatar(student.profilePicture);
 
@@ -235,8 +208,6 @@ function showProfileView(student) {
         li.textContent = skill.trim();
         skillsContainer.appendChild(li);
     });
-
-    switchTab('profile');
 }
 
 function openEditModal() {
