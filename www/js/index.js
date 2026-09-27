@@ -1,9 +1,11 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 if (!window.cordova) { document.addEventListener('DOMContentLoaded', onDeviceReady); }
 
+const defaultAvatarSVG = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyBmaWxsPScjMzhiZGY4Jz48Y2lyY2xlIGN4PSc1MCcgY3k9JzM1JyByPScyMCcvPjxwYXRoIGQ9J00gMjAsODAgQyAyMCw2MCAzNSw1NSA1MCw1NSBDIDY1LDU1IDgwLDYwIDgwLDgwIFonLz48L3N2Zz4=";
+
 const DBEngine = {
     dbName: "StudentProfileDB",
-    dbVersion: 10, // Bumped to 10 to clear version error on device
+    dbVersion: 11,
     db: null,
 
     init() {
@@ -41,7 +43,7 @@ const DBEngine = {
                         yearLevel: "3rd Year",
                         about: "Passionate software development student specializing in mobile app engineering.",
                         skills: "HTML5, CSS3, JavaScript, Cordova, Git, Database",
-                        profilePicture: ""
+                        profilePicture: defaultAvatarSVG
                     });
                 }
                 resolve();
@@ -81,7 +83,6 @@ const DBEngine = {
 };
 
 let currentSessionUser = null;
-const defaultAvatarSVG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%2338bdf8'><circle cx='50' cy='35' r='20'/><path d='M 20,80 C 20,60 35,55 50,55 C 65,55 80,60 80,80 Z'/></svg>";
 
 function onDeviceReady() {
     DBEngine.init().then(() => {
