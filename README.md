@@ -1,65 +1,117 @@
-# Mercado_StudentProfile
+# Mercado_StudentProfile - Activity 7: Database Integration & Authentication
 
-A multi-page responsive student profile web application with dynamic profile editing, localStorage persistence, and native device camera integration packaged with Apache Cordova for ITCC 41.
+A responsive Apache Cordova mobile application featuring user authentication, database persistence (IndexedDB), full CRUD operations, and native device camera integration for ITCC 41.
+
+---
 
 ## 1. Project Description
-This application serves as an interactive Student Profile showcasing personal details, technical background, skills, projects, and contact information, enhanced with dynamic form editing and native device camera capabilities.
+This application serves as an interactive, database-driven Student Profile application. It expands upon Activity 6 by replacing plain local storage with an asynchronous database engine, enforcing authentication via a Login page, and allowing full CRUD (Create, Read, Update, Delete) management of student profile records.
+
+---
 
 ## 2. Application Pages
-* **Profile (`index.html`):** Main entry point displaying profile data, profile picture, Change Profile Picture trigger, and Edit Profile form interface.
-* **About (`about.html`):** Personal background, interests, and educational goals.
-* **Skills (`skills.html`):** Overview of technical competencies and programming tools.
-* **Projects (`projects.html`):** Portfolio showcasing previous development projects.
-* **Contact (`contact.html`):** Direct contact options and interactive form layout.
+* **Login Page**: Protected gateway requiring Student ID / Email and password authentication before granting profile access.
+* **Student Profile Page**: Primary dashboard displaying database-stored student details (Name, Course, Year Level, Student ID, About Me, Skills, Profile Picture).
+* **Edit Profile Modal**: Form view allowing authenticated users to update their profile information directly in the database.
 
-## 3. Profile Editing
-The Profile page includes an Edit Profile view that allows users to modify:
-* Full Name, Course / Program, Year Level, About Me, and Skills.
-* Form inputs validate required fields and save updates into `localStorage`.
+---
 
-## 4. Camera Integration
-* **Trigger:** Tapping either the profile picture directly or selecting the `Change Profile Picture` button initiates the device camera[cite: 9].
-* **Process:** `Change Profile Picture` → `Open Camera` → `Capture Image` → `Update Profile Picture`.
-* Uses `cordova-plugin-camera` via `navigator.camera.getPicture` with `DATA_URL` (Base64) encoding[cite: 9, 10].
+## 3. Authentication
+The application enforces strict access control to protect student information:
+* **Workflow**: Login -> Authenticate Credentials -> Grant Session Token -> Display Student Profile
+* Unauthenticated users attempting to bypass the login screen are denied access and redirected to login.
+* Passwords are validated asynchronously against stored records in the database.
 
-## 5. Device Feature Integration
-Cordova acts as a bridge between web technology and native hardware, giving JavaScript direct access to Android device APIs such as hardware camera capture without requiring native Java/Kotlin code.
+---
 
-## 6. Image Handling
-* Upon successful capture, the image data is formatted as a Base64 string (`data:image/jpeg;base64,...`)[cite: 9].
-* The Base64 string is assigned to the profile DOM image tag and saved inside `localStorage` under the `studentProfile` key[cite: 10].
-* The photo persists seamlessly across application restarts[cite: 10].
+## 4. Student Profile Management
+Authenticated students can perform complete profile management:
+* View profile data loaded directly from database stores.
+* Edit personal details (Name, Course, Year Level, About Me, Skills).
+* Update profile picture using native device camera integration.
+* Terminate sessions using the Logout button.
 
-## 7. Error Handling
-* **Permission / Access Denial:** Displays a non-crashing alert message ("Unable to access the camera. Please check your device permissions.") if access fails[cite: 10].
-* **Cancellation:** If the camera operation is cancelled by the user, the application gracefully retains the existing profile photo without crashing[cite: 10].
+---
 
-## 8. Responsive Design
-* **Desktop (≥900px):** Centered view container with high legibility.
-* **Tablet (600px - 899px):** Balanced scaling and touch navigation.
-* **Mobile (<600px):** Single-column stacked form elements and touch-friendly targets.
+## 5. Database Integration
+The application uses an asynchronous database engine (IndexedDB) to persist profile records locally on the device:
+* **Student ID**: Primary key identifier (e.g., 2021-100451).
+* **Name, Course, Year Level**: Core student attributes.
+* **About Me & Skills**: Profile content fields.
+* **Profile Picture**: Base64 image data URI / asset path reference.
 
-## 9. How to Run
-```bash
-npm install
-cordova plugin add cordova-plugin-camera
-cordova platform add android
-cordova run android
-```
+---
 
-## 10. Application Screenshots
+## 6. API / Backend Architecture
+Cordova Application -> IndexedDB Engine -> Native Storage
 
-### Student Profile
-![Student Profile](./Screenshots/profile_m.png)
+---
 
-### Change Profile Picture
-![Change Profile Picture](./Screenshots/change_photo_m.png)
+## 7. CRUD Operations
+* **Create**: Seeded initial student profile and new profile record creation.
+* **Read**: Asynchronous query retrieving student records upon successful login.
+* **Update**: Modifying existing record fields and updating the corresponding database entry.
+* **Delete**: Explicit delete operation for removing student records from the database.
 
-### Camera
-![Camera Interface](./Screenshots/camera_m.png)
+---
 
-### Captured Image
-![Captured Image](./Screenshots/captured_m.png)
+## 8. Camera Integration
+Retains the cordova-plugin-camera native device camera implementation from Activity 6. Photos captured from the device camera are encoded into Data URLs and persisted directly inside the student's database record.
 
-### Updated Profile Picture
-![Updated Profile Picture](./Screenshots/updated_photo_m.png)
+---
+
+## 9. Data Persistence
+Profile changes remain fully persistent across:
+* Closing and reopening the application.
+* Device restarts.
+* Logging out and logging back in.
+
+---
+
+## 10. Responsive Design
+Styled with a modern dark theme using modern CSS flexbox and media queries to ensure smooth layout adaptation across mobile, tablet, and desktop viewports.
+
+---
+
+## 11. Security
+* Credentials and session tokens (`auth_token`) are managed in memory/local storage without exposing sensitive keys.
+* Repository configured with `.gitignore` to prevent committing sensitive files.
+
+---
+
+## 12. How to Run
+1. Clone Repository: `git clone https://github.com/euanmercado/Mercado_StudentProfile.git`
+2. Install Cordova: `npm install -g cordova`
+3. Add Android Platform: `cordova platform add android`
+4. Run Application: `cordova run android`
+
+---
+
+## 13. Test Accounts
+* **Student ID / Email**: `2021-100451` or `euan@xu.edu.ph`
+* **Password**: `password123`
+
+---
+
+## 14. Application Screenshots
+
+### 1. Login Page
+![Login Page](Screenshots/01_login_page.png)
+
+### 2. Login Error (Validation Test)
+![Login Error](Screenshots/02_login_error.png)
+
+### 3. Profile Dashboard (Database Read)
+![Profile Dashboard](Screenshots/03_profile_dashboard.png)
+
+### 4. Edit Profile Modal (Database Update Form)
+![Edit Modal](Screenshots/04_edit_modal.png)
+
+### 5. Updated Profile View
+![Updated Profile](Screenshots/05_updated_profile.png)
+
+### 6. IndexedDB Storage Verification
+![IndexedDB Storage](Screenshots/06_indexeddb_storage.png)
+
+### 7. Account Deletion (CRUD Delete)
+![Delete Account](Screenshots/07_delete_account.png)
