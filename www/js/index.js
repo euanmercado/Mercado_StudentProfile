@@ -1,11 +1,11 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 if (!window.cordova) { document.addEventListener('DOMContentLoaded', onDeviceReady); }
 
-const defaultAvatarSVG = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyBmaWxsPScjMzhiZGY4Jz48Y2lyY2xlIGN4PSc1MCcgY3k9JzM1JyByPScyMCcvPjxwYXRoIGQ9J00gMjAsODAgQyAyMCw2MCAzNSw1NSA1MCw1NSBDIDY1LDU1IDgwLDYwIDgwLDgwIFonLz48L3N2Zz4=";
+const defaultPhotoPath = "img/profile.jpg";
 
 const DBEngine = {
     dbName: "StudentProfileDB",
-    dbVersion: 11,
+    dbVersion: 13, // Bumped to 13 to clear cached photo and load img/profile.jpg
     db: null,
 
     init() {
@@ -43,7 +43,7 @@ const DBEngine = {
                         yearLevel: "3rd Year",
                         about: "Passionate software development student specializing in mobile app engineering.",
                         skills: "HTML5, CSS3, JavaScript, Cordova, Git, Database",
-                        profilePicture: defaultAvatarSVG
+                        profilePicture: defaultPhotoPath
                     });
                 }
                 resolve();
@@ -162,10 +162,10 @@ function showProfileView(student) {
     document.getElementById('view-about').textContent = student.about;
     
     const profileImg = document.getElementById('profile-img');
-    if (student.profilePicture && student.profilePicture.startsWith('data:image')) {
+    if (student.profilePicture) {
         profileImg.src = student.profilePicture;
     } else {
-        profileImg.src = defaultAvatarSVG;
+        profileImg.src = defaultPhotoPath;
     }
 
     const skillsContainer = document.getElementById('view-skills');
