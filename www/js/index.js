@@ -5,7 +5,7 @@ const defaultPhotoPath = "img/profile.jpg";
 
 const DBEngine = {
     dbName: "StudentProfileDB",
-    dbVersion: 15, // Reset database to force reloading valid photo
+    dbVersion: 15,
     db: null,
 
     init() {
@@ -99,25 +99,6 @@ function setupEventListeners() {
     document.getElementById('edit-form').addEventListener('submit', handleSaveProfile);
     document.getElementById('btn-change-photo').addEventListener('click', capturePhoto);
     document.getElementById('btn-crud-delete').addEventListener('click', handleDeleteAccount);
-
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const targetTab = item.getAttribute('data-tab');
-            switchTab(targetTab);
-        });
-    });
-}
-
-function switchTab(tabName) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-
-    const activeContent = document.getElementById(`tab-${tabName}`);
-    const activeBtn = document.querySelector(`.nav-item[data-tab="${tabName}"]`);
-
-    if (activeContent) activeContent.classList.remove('hidden');
-    if (activeBtn) activeBtn.classList.add('active');
 }
 
 async function handleLogin(e) {
@@ -178,7 +159,6 @@ function showProfileView(student) {
     document.getElementById('view-name').textContent = student.name;
     document.getElementById('view-course-year').textContent = `${student.course} - ${student.yearLevel}`;
     document.getElementById('view-student-id').textContent = `ID: ${student.studentId}`;
-    document.getElementById('view-about').textContent = student.about;
     
     const profileImg = document.getElementById('profile-img');
     profileImg.onerror = function() {
@@ -191,14 +171,6 @@ function showProfileView(student) {
     } else {
         profileImg.src = defaultPhotoPath;
     }
-
-    const skillsContainer = document.getElementById('view-skills');
-    skillsContainer.innerHTML = '';
-    student.skills.split(',').forEach(skill => {
-        const li = document.createElement('li');
-        li.textContent = skill.trim();
-        skillsContainer.appendChild(li);
-    });
 }
 
 function openEditModal() {
@@ -206,8 +178,8 @@ function openEditModal() {
     document.getElementById('edit-name').value = currentSessionUser.name;
     document.getElementById('edit-course').value = currentSessionUser.course;
     document.getElementById('edit-year').value = currentSessionUser.yearLevel;
-    document.getElementById('edit-about').value = currentSessionUser.about;
-    document.getElementById('edit-skills').value = currentSessionUser.skills;
+    document.getElementById('edit-about').value = currentSessionUser.about || '';
+    document.getElementById('edit-skills').value = currentSessionUser.skills || '';
     document.getElementById('edit-modal').classList.remove('hidden');
 }
 

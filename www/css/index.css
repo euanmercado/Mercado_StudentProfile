@@ -45,7 +45,6 @@ body {
     flex: 1;
     padding: 20px;
     overflow-y: auto;
-    padding-bottom: 90px;
 }
 
 /* Profile Card */
@@ -156,39 +155,6 @@ body {
     margin-top: 10px;
 }
 
-/* Bottom Navigation */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: #0b132b;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 8px 24px 8px;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    z-index: 100;
-}
-
-.nav-item {
-    background: transparent;
-    border: none;
-    color: #94a3b8;
-    font-size: 0.85rem;
-    font-weight: 500;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.nav-item.active {
-    background-color: #1c2541;
-    color: #00a8ff;
-    font-weight: 600;
-}
-
 /* Modal */
 .modal {
     position: fixed;
@@ -246,21 +212,4 @@ body {
     color: white;
     z-index: 2000;
     font-size: 0.9rem;
-}
-
-.skills-list {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    padding: 0;
-}
-
-.skills-list li {
-    background: #0b132b;
-    color: #00a8ff;
-    padding: 6px 12px;
-    border-radius: 16px;
-    font-size: 0.85rem;
 }

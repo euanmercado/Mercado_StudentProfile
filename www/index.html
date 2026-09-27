@@ -39,60 +39,22 @@
         </header>
 
         <main class="container">
-            <div id="tab-profile" class="tab-content active">
-                <div class="profile-card">
-                    <div class="avatar-wrapper">
-                        <img id="profile-img" src="img/profile.jpg" alt="Profile Picture">
-                        <button id="btn-change-photo" class="btn-change-photo">Change Photo</button>
-                    </div>
-
-                    <h1 id="view-name">Euan Jorn Dy Mercado</h1>
-                    <p id="view-course-year" class="tag">BS Information Technology - 3rd Year</p>
-                    <p id="view-student-id" class="id-badge">ID: 2021-100451</p>
-
-                    <div class="action-buttons">
-                        <button id="btn-edit-profile" class="btn btn-primary">Edit Profile</button>
-                        <button id="btn-crud-delete" class="btn btn-outline-danger">Delete Account (CRUD)</button>
-                    </div>
+            <div class="profile-card">
+                <div class="avatar-wrapper">
+                    <img id="profile-img" src="img/profile.jpg" alt="Profile Picture">
+                    <button id="btn-change-photo" class="btn-change-photo">Change Photo</button>
                 </div>
-            </div>
 
-            <div id="tab-about" class="tab-content hidden">
-                <div class="profile-card">
-                    <h3>About Me</h3>
-                    <p id="view-about">Passionate software development student specializing in mobile app engineering.</p>
-                </div>
-            </div>
+                <h1 id="view-name">Euan Jorn Dy Mercado</h1>
+                <p id="view-course-year" class="tag">BS Information Technology - 3rd Year</p>
+                <p id="view-student-id" class="id-badge">ID: 2021-100451</p>
 
-            <div id="tab-skills" class="tab-content hidden">
-                <div class="profile-card">
-                    <h3>Skills</h3>
-                    <ul id="view-skills" class="skills-list"></ul>
-                </div>
-            </div>
-
-            <div id="tab-projects" class="tab-content hidden">
-                <div class="profile-card">
-                    <h3>Projects</h3>
-                    <p>Mobile App Development Projects & Portfolio.</p>
-                </div>
-            </div>
-
-            <div id="tab-contact" class="tab-content hidden">
-                <div class="profile-card">
-                    <h3>Contact</h3>
-                    <p>Email: euan@xu.edu.ph</p>
+                <div class="action-buttons">
+                    <button id="btn-edit-profile" class="btn btn-primary">Edit Profile</button>
+                    <button id="btn-crud-delete" class="btn btn-outline-danger">Delete Account (CRUD)</button>
                 </div>
             </div>
         </main>
-
-        <nav class="bottom-nav">
-            <button class="nav-item active" data-tab="profile">Profile</button>
-            <button class="nav-item" data-tab="about">About</button>
-            <button class="nav-item" data-tab="skills">Skills</button>
-            <button class="nav-item" data-tab="projects">Projects</button>
-            <button class="nav-item" data-tab="contact">Contact</button>
-        </nav>
     </div>
 
     <div id="edit-modal" class="modal hidden">
