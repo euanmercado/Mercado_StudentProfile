@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: content:;">
-    <title>Student Profile App</title>
+    <title>Student Profile</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <div id="toast" class="toast hidden"></div>
 
-    <div id="login-page" class="page-view active">
+    <div id="login-page" class="page-view hidden">
         <div class="login-card">
             <h2>Student Login</h2>
             <p class="subtitle">Access your protected Student Profile</p>
@@ -32,39 +32,67 @@
         </div>
     </div>
 
-    <div id="profile-page" class="page-view hidden">
+    <div id="profile-page" class="page-view active">
         <header class="app-header">
-            <h3>Student Profile</h3>
-            <button id="btn-logout" class="btn btn-danger-sm">Logout</button>
+            <div class="header-title">Student<br>Portal</div>
+            <button id="btn-logout" class="btn btn-danger">Logout</button>
         </header>
 
         <main class="container">
-            <div class="profile-card">
-                <div class="avatar-wrapper">
-                    <img id="profile-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxMDAgMTAwJyBmaWxsPScjMzhiZGY4Jz48Y2lyY2xlIGN4PSc1MCcgY3k9JzM1JyByPScyMCcvPjxwYXRoIGQ9J00gMjAsODAgQyAyMCw2MCAzNSw1NSA1MCw1NSBDIDY1LDU1IDgwLDYwIDgwLDgwIFonLz48L3N2Zz4=" alt="Profile Picture">
-                    <button id="btn-change-photo" class="btn btn-secondary-sm">Change Photo</button>
+            <div id="tab-profile" class="tab-content active">
+                <div class="profile-card">
+                    <div class="avatar-wrapper">
+                        <img id="profile-img" src="img/profile.jpg" alt="Profile Picture" onerror="this.onerror=null; this.src='img/profile.png';">
+                        <button id="btn-change-photo" class="btn-change-photo">Change Photo</button>
+                    </div>
+
+                    <h1 id="view-name">Euan Jorn Dy Mercado</h1>
+                    <p id="view-course-year" class="tag">BS Information Technology - 3rd Year</p>
+                    <p id="view-student-id" class="id-badge">ID: 2021-100451</p>
+
+                    <div class="action-buttons">
+                        <button id="btn-edit-profile" class="btn btn-primary">Edit Profile</button>
+                        <button id="btn-crud-delete" class="btn btn-outline-danger">Delete Account (CRUD)</button>
+                    </div>
                 </div>
+            </div>
 
-                <h1 id="view-name">Euan Jorn Dy Mercado</h1>
-                <p id="view-course-year" class="tag">BS Information Technology - 3rd Year</p>
-                <p id="view-student-id" class="id-badge">ID: 2021-100451</p>
-
-                <section class="section">
+            <div id="tab-about" class="tab-content hidden">
+                <div class="profile-card">
                     <h3>About Me</h3>
                     <p id="view-about">Passionate software development student specializing in mobile app engineering.</p>
-                </section>
+                </div>
+            </div>
 
-                <section class="section">
+            <div id="tab-skills" class="tab-content hidden">
+                <div class="profile-card">
                     <h3>Skills</h3>
                     <ul id="view-skills" class="skills-list"></ul>
-                </section>
+                </div>
+            </div>
 
-                <div class="action-buttons">
-                    <button id="btn-edit-profile" class="btn btn-primary">Edit Profile</button>
-                    <button id="btn-crud-delete" class="btn btn-outline-danger">Delete Account (CRUD)</button>
+            <div id="tab-projects" class="tab-content hidden">
+                <div class="profile-card">
+                    <h3>Projects</h3>
+                    <p>Mobile App Development Projects & Portfolio.</p>
+                </div>
+            </div>
+
+            <div id="tab-contact" class="tab-content hidden">
+                <div class="profile-card">
+                    <h3>Contact</h3>
+                    <p>Email: euan@xu.edu.ph</p>
                 </div>
             </div>
         </main>
+
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-tab="profile">Profile</button>
+            <button class="nav-item" data-tab="about">About</button>
+            <button class="nav-item" data-tab="skills">Skills</button>
+            <button class="nav-item" data-tab="projects">Projects</button>
+            <button class="nav-item" data-tab="contact">Contact</button>
+        </nav>
     </div>
 
     <div id="edit-modal" class="modal hidden">

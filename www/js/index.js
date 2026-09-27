@@ -5,7 +5,7 @@ const defaultPhotoPath = "img/profile.jpg";
 
 const DBEngine = {
     dbName: "StudentProfileDB",
-    dbVersion: 13, // Bumped to 13 to clear cached photo and load img/profile.jpg
+    dbVersion: 14, // Bumped to v14 to restore clean profile photo & nav styles
     db: null,
 
     init() {
@@ -99,6 +99,26 @@ function setupEventListeners() {
     document.getElementById('edit-form').addEventListener('submit', handleSaveProfile);
     document.getElementById('btn-change-photo').addEventListener('click', capturePhoto);
     document.getElementById('btn-crud-delete').addEventListener('click', handleDeleteAccount);
+
+    // Tab Navigation Switcher
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const targetTab = item.getAttribute('data-tab');
+            switchTab(targetTab);
+        });
+    });
+}
+
+function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+    document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+
+    const activeContent = document.getElementById(`tab-${tabName}`);
+    const activeBtn = document.querySelector(`.nav-item[data-tab="${tabName}"]`);
+
+    if (activeContent) activeContent.classList.remove('hidden');
+    if (activeBtn) activeBtn.classList.add('active');
 }
 
 async function handleLogin(e) {
