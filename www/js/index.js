@@ -1,7 +1,7 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 if (!window.cordova) { document.addEventListener('DOMContentLoaded', onDeviceReady); }
 
-const DEFAULT_AVATAR = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2338bdf8'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3 3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z'/></svg>";
+const DEFAULT_AVATAR = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzM4YmRmOCI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MxLjY2IDAgMyAxLjM0IDMgM3MtMS4zNCAzLTMgMy0zLTEuMzQtMy0zIDEuMzQtMyAzIDN6bTAgMTQuMmMtMi41IDAtNC43MS0xLjI4LTYtMy4yMi4wMy0xLjk5IDQtMy4wOCA2LTMuMDggMS45OSAwIDUuOTcgMS4wOSA2IDMuMDgtMS4yOSAxLjk0LTMuNSA0LjIyLTYgNC4yMnoiLz48L3N2Zz4=";
 
 const DBEngine = {
     dbName: "StudentProfileDB",
@@ -33,7 +33,7 @@ const DBEngine = {
             const check = store.get("2021-100451");
             check.onsuccess = () => {
                 const data = check.result;
-                if (!data || !data.profilePicture || data.profilePicture.includes("profile.jpeg")) {
+                if (!data || !data.profilePicture || !data.profilePicture.startsWith("data:image/")) {
                     store.put({
                         studentId: "2021-100451",
                         email: "euan@xu.edu.ph",
@@ -190,15 +190,16 @@ function showProfileView(student) {
     document.getElementById('view-contact-id').textContent = student.studentId;
 
     const imgElem = document.getElementById('profile-img');
+    
+    if (!student.profilePicture || !student.profilePicture.startsWith("data:image/")) {
+        student.profilePicture = DEFAULT_AVATAR;
+        DBEngine.saveStudent(student);
+    }
+
     imgElem.onerror = function() {
         this.onerror = null;
         this.src = DEFAULT_AVATAR;
     };
-
-    if (!student.profilePicture || student.profilePicture.includes("profile.jpeg")) {
-        student.profilePicture = DEFAULT_AVATAR;
-        DBEngine.saveStudent(student);
-    }
 
     imgElem.src = student.profilePicture;
 
