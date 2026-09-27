@@ -5,7 +5,7 @@ const DEFAULT_AVATAR = "img/avatar.svg";
 
 const DBEngine = {
     dbName: "StudentProfileDB",
-    dbVersion: 1,
+    dbVersion: 2, // Incremented version to clear legacy schemas
     db: null,
 
     init() {
@@ -13,10 +13,11 @@ const DBEngine = {
             const request = indexedDB.open(this.dbName, this.dbVersion);
             request.onupgradeneeded = (e) => {
                 const db = e.target.result;
-                if (!db.objectStoreNames.contains("students")) {
-                    const store = db.createObjectStore("students", { keyPath: "studentId" });
-                    store.createIndex("email", "email", { unique: true });
+                if (db.objectStoreNames.contains("students")) {
+                    db.deleteObjectStore("students");
                 }
+                const store = db.createObjectStore("students", { keyPath: "studentId" });
+                store.createIndex("email", "email", { unique: true });
             };
             request.onsuccess = (e) => {
                 this.db = e.target.result;
@@ -32,11 +33,7 @@ const DBEngine = {
             const store = tx.objectStore("students");
             const check = store.get("2021-100451");
             check.onsuccess = () => {
-                const data = check.result;
-                const isCorrupt = !data || !data.profilePicture || 
-                                 (!data.profilePicture.startsWith("data:image/jpeg") && !data.profilePicture.endsWith(".svg"));
-                
-                if (isCorrupt) {
+                if (!check.result) {
                     store.put({
                         studentId: "2021-100451",
                         email: "euan@xu.edu.ph",
@@ -193,22 +190,12 @@ function showProfileView(student) {
     document.getElementById('view-contact-id').textContent = student.studentId;
 
     const imgElem = document.getElementById('profile-img');
-    
     imgElem.onerror = function() {
         this.onerror = null;
         this.src = DEFAULT_AVATAR;
     };
 
-    const pic = student.profilePicture;
-    const isValid = pic && (pic.startsWith("data:image/jpeg;base64,") || pic.endsWith(".svg"));
-
-    if (!isValid) {
-        student.profilePicture = DEFAULT_AVATAR;
-        DBEngine.saveStudent(student);
-        imgElem.src = DEFAULT_AVATAR;
-    } else {
-        imgElem.src = pic;
-    }
+    imgElem.src = (student.profilePicture && student.profilePicture.startsWith("data:image/")) ? student.profilePicture : DEFAULT_AVATAR;
 
     const skillsContainer = document.getElementById('view-skills');
     skillsContainer.innerHTML = '';
@@ -231,9 +218,7 @@ function openEditModal() {
     document.getElementById('edit-modal').classList.remove('hidden');
 }
 
-function closeEditModal() {
-    document.getElementById('edit-modal').classList.add('hidden');
-}
+closeEditModal = () => document.getElementById('edit-modal').classList.add('hidden');
 
 async function handleSaveProfile(e) {
     e.preventDefault();
