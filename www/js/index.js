@@ -1,7 +1,7 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 if (!window.cordova) { document.addEventListener('DOMContentLoaded', onDeviceReady); }
 
-const DEFAULT_AVATAR = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0iIzM4YmRmOCI+PHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyczQuNDggMTAgMTAgMTAgMTAtNC40OCAxMC0xMFMxNy41MiAyIDEyIDJ6bTAgM2MxLjY2IDAgMyAxLjM0IDMgM3MtMS4zNCAzLTMgMy0zLTEuMzQtMy0zIDEuMzQtMyAzIDN6bTAgMTQuMmMtMi41IDAtNC43MS0xLjI4LTYtMy4yMi4wMy0xLjk5IDQtMy4wOCA2LTMuMDggMS45OSAwIDUuOTcgMS4wOSA2IDMuMDgtMS4yOSAxLjk0LTMuNSA0LjIyLTYgNC4yMnoiLz48L3N2Zz4=";
+const DEFAULT_AVATAR = "img/avatar.svg";
 
 const DBEngine = {
     dbName: "StudentProfileDB",
@@ -33,7 +33,10 @@ const DBEngine = {
             const check = store.get("2021-100451");
             check.onsuccess = () => {
                 const data = check.result;
-                if (!data || !data.profilePicture || !data.profilePicture.startsWith("data:image/")) {
+                const isCorrupt = !data || !data.profilePicture || 
+                                 (!data.profilePicture.startsWith("data:image/jpeg") && !data.profilePicture.endsWith(".svg"));
+                
+                if (isCorrupt) {
                     store.put({
                         studentId: "2021-100451",
                         email: "euan@xu.edu.ph",
@@ -191,17 +194,21 @@ function showProfileView(student) {
 
     const imgElem = document.getElementById('profile-img');
     
-    if (!student.profilePicture || !student.profilePicture.startsWith("data:image/")) {
-        student.profilePicture = DEFAULT_AVATAR;
-        DBEngine.saveStudent(student);
-    }
-
     imgElem.onerror = function() {
         this.onerror = null;
         this.src = DEFAULT_AVATAR;
     };
 
-    imgElem.src = student.profilePicture;
+    const pic = student.profilePicture;
+    const isValid = pic && (pic.startsWith("data:image/jpeg;base64,") || pic.endsWith(".svg"));
+
+    if (!isValid) {
+        student.profilePicture = DEFAULT_AVATAR;
+        DBEngine.saveStudent(student);
+        imgElem.src = DEFAULT_AVATAR;
+    } else {
+        imgElem.src = pic;
+    }
 
     const skillsContainer = document.getElementById('view-skills');
     skillsContainer.innerHTML = '';
@@ -269,7 +276,7 @@ function capturePhoto() {
     }
 
     const cameraOptions = {
-        quality: 40,
+        quality: 50,
         destinationType: navigator.camera.DestinationType.DATA_URL,
         sourceType: navigator.camera.PictureSourceType.CAMERA,
         encodingType: navigator.camera.EncodingType.JPEG,
@@ -280,8 +287,11 @@ function capturePhoto() {
 
     navigator.camera.getPicture(
         (imageData) => {
-            const photoUrl = "data:image/jpeg;base64," + imageData;
-            updatePhoto(photoUrl);
+            if (imageData && imageData.length > 50) {
+                const cleanData = imageData.replace(/[\r\n]/g, '');
+                const photoUrl = "data:image/jpeg;base64," + cleanData;
+                updatePhoto(photoUrl);
+            }
         },
         (error) => { showToast("Camera cancelled or failed.", true); },
         cameraOptions
