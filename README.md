@@ -43,10 +43,7 @@ The application uses an asynchronous database engine (IndexedDB) to persist prof
 ---
 
 ## 6. API / Backend Architecture
-Explain how the Cordova application communicates with the backend/API.
-
-Include the basic architecture:
-Cordova Application -> API/Backend -> Database
+Cordova Application -> IndexedDB Engine -> Native Storage
 
 ---
 
@@ -72,32 +69,49 @@ Profile changes remain fully persistent across:
 ---
 
 ## 10. Responsive Design
-Styled with a modern dark theme using modern CSS flexbox and media queries to ensure smooth layout adaptation across:
-* Mobile screen devices (emulators and handheld devices).
-* Tablet screens.
-* Desktop browsers.
+Styled with a modern dark theme using modern CSS flexbox and media queries to ensure smooth layout adaptation across mobile, tablet, and desktop viewports.
 
 ---
 
 ## 11. Security
-* Credentials and session tokens (auth_token) are managed in memory/local storage without exposing sensitive keys.
-* Repository configured with .gitignore to prevent committing sensitive keys or environment variables.
+* Credentials and session tokens (`auth_token`) are managed in memory/local storage without exposing sensitive keys.
+* Repository configured with `.gitignore` to prevent committing sensitive files.
 
 ---
 
 ## 12. How to Run
-1. Clone Repository: git clone https://github.com/euanmercado/Mercado_StudentProfile.git
-2. Install Cordova: npm install -g cordova
-3. Add Android Platform: cordova platform add android
-4. Run Application: cordova run android
+1. Clone Repository: `git clone https://github.com/euanmercado/Mercado_StudentProfile.git`
+2. Install Cordova: `npm install -g cordova`
+3. Add Android Platform: `cordova platform add android`
+4. Run Application: `cordova run android`
 
 ---
 
 ## 13. Test Accounts
-* **Student ID / Email**: 2021-100451 or euan@xu.edu.ph
-* **Password**: password123
+* **Student ID / Email**: `2021-100451` or `euan@xu.edu.ph`
+* **Password**: `password123`
 
 ---
 
 ## 14. Application Screenshots
-*(Add your Activity 7 testing screenshots to Screenshots/ directory)*
+
+### 1. Login Page
+![Login Page](Screenshots/01_login_page.png)
+
+### 2. Login Error (Validation Test)
+![Login Error](Screenshots/02_login_error.png)
+
+### 3. Profile Dashboard (Database Read)
+![Profile Dashboard](Screenshots/03_profile_dashboard.png)
+
+### 4. Edit Profile Modal (Database Update Form)
+![Edit Modal](Screenshots/04_edit_modal.png)
+
+### 5. Updated Profile View
+![Updated Profile](Screenshots/05_updated_profile.png)
+
+### 6. IndexedDB Storage Verification
+![IndexedDB Storage](Screenshots/06_indexeddb_storage.png)
+
+### 7. Account Deletion (CRUD Delete)
+![Delete Account](Screenshots/07_delete_account.png)
