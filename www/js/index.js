@@ -5,7 +5,7 @@ const defaultPhotoPath = "img/profile.jpg";
 
 const DBEngine = {
     dbName: "StudentProfileDB",
-    dbVersion: 14, // Bumped to v14 to restore clean profile photo & nav styles
+    dbVersion: 15, // Reset database to force reloading valid photo
     db: null,
 
     init() {
@@ -100,7 +100,6 @@ function setupEventListeners() {
     document.getElementById('btn-change-photo').addEventListener('click', capturePhoto);
     document.getElementById('btn-crud-delete').addEventListener('click', handleDeleteAccount);
 
-    // Tab Navigation Switcher
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {
         item.addEventListener('click', () => {
@@ -182,6 +181,11 @@ function showProfileView(student) {
     document.getElementById('view-about').textContent = student.about;
     
     const profileImg = document.getElementById('profile-img');
+    profileImg.onerror = function() {
+        this.onerror = null;
+        this.src = 'img/profile.png';
+    };
+    
     if (student.profilePicture) {
         profileImg.src = student.profilePicture;
     } else {
