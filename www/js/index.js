@@ -3,7 +3,7 @@ if (!window.cordova) { document.addEventListener('DOMContentLoaded', onDeviceRea
 
 const DBEngine = {
     dbName: "StudentProfileDB",
-    dbVersion: 2,
+    dbVersion: 10, // Bumped to 10 to clear version error on device
     db: null,
 
     init() {
