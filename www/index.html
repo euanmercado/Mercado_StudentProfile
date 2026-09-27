@@ -3,14 +3,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: content:;">
-    <title>Student Profile</title>
+    <title>Student Profile App</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
     <div id="toast" class="toast hidden"></div>
 
-    <div id="login-page" class="page-view hidden">
+    <div id="login-page" class="page-view active">
         <div class="login-card">
             <h2>Student Login</h2>
             <p class="subtitle">Access your protected Student Profile</p>
@@ -32,22 +31,32 @@
         </div>
     </div>
 
-    <div id="profile-page" class="page-view active">
+    <div id="profile-page" class="page-view hidden">
         <header class="app-header">
-            <div class="header-title">Student<br>Portal</div>
-            <button id="btn-logout" class="btn btn-danger">Logout</button>
+            <h3>Student Profile</h3>
+            <button id="btn-logout" class="btn btn-danger-sm">Logout</button>
         </header>
 
         <main class="container">
             <div class="profile-card">
                 <div class="avatar-wrapper">
-                    <img id="profile-img" src="img/profile.jpg" alt="Profile Picture">
-                    <button id="btn-change-photo" class="btn-change-photo">Change Photo</button>
+                    <img id="profile-img" src="img/profile.jpeg" alt="Profile Picture">
+                    <button id="btn-change-photo" class="btn btn-secondary-sm">Change Photo</button>
                 </div>
 
                 <h1 id="view-name">Euan Jorn Dy Mercado</h1>
                 <p id="view-course-year" class="tag">BS Information Technology - 3rd Year</p>
                 <p id="view-student-id" class="id-badge">ID: 2021-100451</p>
+
+                <section class="section">
+                    <h3>About Me</h3>
+                    <p id="view-about">Passionate software development student specializing in mobile app engineering.</p>
+                </section>
+
+                <section class="section">
+                    <h3>Skills</h3>
+                    <ul id="view-skills" class="skills-list"></ul>
+                </section>
 
                 <div class="action-buttons">
                     <button id="btn-edit-profile" class="btn btn-primary">Edit Profile</button>

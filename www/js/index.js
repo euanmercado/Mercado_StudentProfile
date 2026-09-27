@@ -1,11 +1,9 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 if (!window.cordova) { document.addEventListener('DOMContentLoaded', onDeviceReady); }
 
-const defaultPhotoPath = "img/profile.jpg";
-
 const DBEngine = {
     dbName: "StudentProfileDB",
-    dbVersion: 15,
+    dbVersion: 1,
     db: null,
 
     init() {
@@ -13,11 +11,10 @@ const DBEngine = {
             const request = indexedDB.open(this.dbName, this.dbVersion);
             request.onupgradeneeded = (e) => {
                 const db = e.target.result;
-                if (db.objectStoreNames.contains("students")) {
-                    db.deleteObjectStore("students");
+                if (!db.objectStoreNames.contains("students")) {
+                    const store = db.createObjectStore("students", { keyPath: "studentId" });
+                    store.createIndex("email", "email", { unique: true });
                 }
-                const store = db.createObjectStore("students", { keyPath: "studentId" });
-                store.createIndex("email", "email", { unique: true });
             };
             request.onsuccess = (e) => {
                 this.db = e.target.result;
@@ -43,7 +40,7 @@ const DBEngine = {
                         yearLevel: "3rd Year",
                         about: "Passionate software development student specializing in mobile app engineering.",
                         skills: "HTML5, CSS3, JavaScript, Cordova, Git, Database",
-                        profilePicture: defaultPhotoPath
+                        profilePicture: "img/profile.jpeg"
                     });
                 }
                 resolve();
@@ -159,18 +156,16 @@ function showProfileView(student) {
     document.getElementById('view-name').textContent = student.name;
     document.getElementById('view-course-year').textContent = `${student.course} - ${student.yearLevel}`;
     document.getElementById('view-student-id').textContent = `ID: ${student.studentId}`;
-    
-    const profileImg = document.getElementById('profile-img');
-    profileImg.onerror = function() {
-        this.onerror = null;
-        this.src = 'img/profile.png';
-    };
-    
-    if (student.profilePicture) {
-        profileImg.src = student.profilePicture;
-    } else {
-        profileImg.src = defaultPhotoPath;
-    }
+    document.getElementById('view-about').textContent = student.about;
+    document.getElementById('profile-img').src = student.profilePicture || "img/profile.jpeg";
+
+    const skillsContainer = document.getElementById('view-skills');
+    skillsContainer.innerHTML = '';
+    student.skills.split(',').forEach(skill => {
+        const li = document.createElement('li');
+        li.textContent = skill.trim();
+        skillsContainer.appendChild(li);
+    });
 }
 
 function openEditModal() {
@@ -178,8 +173,8 @@ function openEditModal() {
     document.getElementById('edit-name').value = currentSessionUser.name;
     document.getElementById('edit-course').value = currentSessionUser.course;
     document.getElementById('edit-year').value = currentSessionUser.yearLevel;
-    document.getElementById('edit-about').value = currentSessionUser.about || '';
-    document.getElementById('edit-skills').value = currentSessionUser.skills || '';
+    document.getElementById('edit-about').value = currentSessionUser.about;
+    document.getElementById('edit-skills').value = currentSessionUser.skills;
     document.getElementById('edit-modal').classList.remove('hidden');
 }
 
@@ -223,30 +218,24 @@ async function handleDeleteAccount() {
 
 function capturePhoto() {
     if (!navigator.camera) {
-        showToast("Camera not available on web preview.");
+        const samplePhoto = "img/profile.jpeg";
+        updatePhoto(samplePhoto);
         return;
     }
 
-    const cameraOptions = {
-        quality: 50,
-        destinationType: navigator.camera.DestinationType.DATA_URL,
-        sourceType: navigator.camera.PictureSourceType.CAMERA,
-        encodingType: navigator.camera.EncodingType.JPEG,
-        targetWidth: 300,
-        targetHeight: 300,
-        correctOrientation: true
-    };
-
     navigator.camera.getPicture(
         (imageData) => {
-            if (imageData) {
-                const cleanData = imageData.replace(/(\r\n|\n|\r)/gm, "");
-                const photoUrl = "data:image/jpeg;base64," + cleanData;
-                updatePhoto(photoUrl);
-            }
+            const photoUrl = "data:image/jpeg;base64," + imageData;
+            updatePhoto(photoUrl);
         },
         (error) => { showToast("Camera cancelled or failed.", true); },
-        cameraOptions
+        {
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            encodingType: Camera.EncodingType.JPEG,
+            correctOrientation: true
+        }
     );
 }
 
