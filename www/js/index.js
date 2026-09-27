@@ -189,8 +189,12 @@ function showProfileView(student) {
     document.getElementById('view-contact-id').textContent = student.studentId;
     
     const imgElem = document.getElementById('profile-img');
-    imgElem.onerror = () => { imgElem.src = DEFAULT_AVATAR; };
-    imgElem.src = student.profilePicture || DEFAULT_AVATAR;
+    if (student.profilePicture && student.profilePicture !== DEFAULT_AVATAR) {
+        imgElem.onerror = null;
+        imgElem.src = student.profilePicture;
+    } else {
+        imgElem.src = DEFAULT_AVATAR;
+    }
 
     const skillsContainer = document.getElementById('view-skills');
     skillsContainer.innerHTML = '';
@@ -257,26 +261,32 @@ function capturePhoto() {
         return;
     }
 
+    const cameraOptions = {
+        quality: 40,
+        destinationType: navigator.camera.DestinationType.DATA_URL,
+        sourceType: navigator.camera.PictureSourceType.CAMERA,
+        encodingType: navigator.camera.EncodingType.JPEG,
+        targetWidth: 300,
+        targetHeight: 300,
+        correctOrientation: true
+    };
+
     navigator.camera.getPicture(
         (imageData) => {
             const photoUrl = "data:image/jpeg;base64," + imageData;
             updatePhoto(photoUrl);
         },
         (error) => { showToast("Camera cancelled or failed.", true); },
-        {
-            quality: 50,
-            destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.CAMERA,
-            encodingType: Camera.EncodingType.JPEG,
-            correctOrientation: true
-        }
+        cameraOptions
     );
 }
 
 async function updatePhoto(photoUrl) {
     currentSessionUser.profilePicture = photoUrl;
     await DBEngine.saveStudent(currentSessionUser);
-    document.getElementById('profile-img').src = photoUrl;
+    const imgElem = document.getElementById('profile-img');
+    imgElem.onerror = null;
+    imgElem.src = photoUrl;
     showToast("Profile picture updated!");
 }
 
