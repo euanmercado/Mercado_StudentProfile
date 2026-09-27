@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content: blob:;">
     <title>Student Profile App</title>
     <link rel="stylesheet" href="css/index.css">
 </head>
@@ -40,9 +41,8 @@
         <main class="container">
             <div id="tab-profile" class="tab-content active">
                 <div class="profile-card">
-                    <div class="avatar-wrapper">
-                        <img id="profile-img" src="" alt="">
-                        <button id="btn-change-photo" class="btn btn-secondary-sm">Change Photo</button>
+                    <div class="avatar-wrapper" id="avatar-container">
+                        <!-- Populated dynamically via JS -->
                     </div>
 
                     <h1 id="view-name">Euan Jorn Dy Mercado</h1>
