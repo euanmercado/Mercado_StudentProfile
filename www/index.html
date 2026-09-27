@@ -33,37 +33,84 @@
 
     <div id="profile-page" class="page-view hidden">
         <header class="app-header">
-            <h3>Student Profile</h3>
+            <h3>Student Portal</h3>
             <button id="btn-logout" class="btn btn-danger-sm">Logout</button>
         </header>
 
         <main class="container">
-            <div class="profile-card">
-                <div class="avatar-wrapper">
-                    <img id="profile-img" src="img/profile.jpeg" alt="Profile Picture">
-                    <button id="btn-change-photo" class="btn btn-secondary-sm">Change Photo</button>
+            <div id="tab-profile" class="tab-content active">
+                <div class="profile-card">
+                    <div class="avatar-wrapper">
+                        <img id="profile-img" src="img/profile.jpeg" alt="Profile Picture">
+                        <button id="btn-change-photo" class="btn btn-secondary-sm">Change Photo</button>
+                    </div>
+
+                    <h1 id="view-name">Euan Jorn Dy Mercado</h1>
+                    <p id="view-course-year" class="tag">BS Information Technology - 3rd Year</p>
+                    <p id="view-student-id" class="id-badge">ID: 2021-100451</p>
+
+                    <div class="action-buttons">
+                        <button id="btn-edit-profile" class="btn btn-primary">Edit Profile</button>
+                        <button id="btn-crud-delete" class="btn btn-outline-danger">Delete Account (CRUD)</button>
+                    </div>
                 </div>
+            </div>
 
-                <h1 id="view-name">Euan Jorn Dy Mercado</h1>
-                <p id="view-course-year" class="tag">BS Information Technology - 3rd Year</p>
-                <p id="view-student-id" class="id-badge">ID: 2021-100451</p>
+            <div id="tab-about" class="tab-content hidden">
+                <div class="content-card">
+                    <h2>About Me</h2>
+                    <p id="view-about">Passionate software development student specializing in mobile app engineering and database systems at Xavier University - Ateneo de Cagayan.</p>
+                </div>
+            </div>
 
-                <section class="section">
-                    <h3>About Me</h3>
-                    <p id="view-about">Passionate software development student specializing in mobile app engineering.</p>
-                </section>
-
-                <section class="section">
-                    <h3>Skills</h3>
+            <div id="tab-skills" class="tab-content hidden">
+                <div class="content-card">
+                    <h2>Technical Skills</h2>
                     <ul id="view-skills" class="skills-list"></ul>
-                </section>
+                </div>
+            </div>
 
-                <div class="action-buttons">
-                    <button id="btn-edit-profile" class="btn btn-primary">Edit Profile</button>
-                    <button id="btn-crud-delete" class="btn btn-outline-danger">Delete Account (CRUD)</button>
+            <div id="tab-projects" class="tab-content hidden">
+                <div class="content-card">
+                    <h2>Projects</h2>
+                    <div class="project-item">
+                        <h3>Apache Cordova Student Profile</h3>
+                        <p>Multi-page mobile web application with native camera integration, database storage, and session authentication.</p>
+                    </div>
+                    <div class="project-item">
+                        <h3>Database Integration System</h3>
+                        <p>IndexedDB database backend implementing full CRUD operations and password validation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-contact" class="tab-content hidden">
+                <div class="content-card">
+                    <h2>Contact Information</h2>
+                    <p><strong>Email:</strong> <span id="view-contact-email">euan@xu.edu.ph</span></p>
+                    <p><strong>Student ID:</strong> <span id="view-contact-id">2021-100451</span></p>
+                    <p><strong>Campus:</strong> Xavier University - Ateneo de Cagayan</p>
                 </div>
             </div>
         </main>
+
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-tab="profile">
+                <span>Profile</span>
+            </button>
+            <button class="nav-item" data-tab="about">
+                <span>About</span>
+            </button>
+            <button class="nav-item" data-tab="skills">
+                <span>Skills</span>
+            </button>
+            <button class="nav-item" data-tab="projects">
+                <span>Projects</span>
+            </button>
+            <button class="nav-item" data-tab="contact">
+                <span>Contact</span>
+            </button>
+        </nav>
     </div>
 
     <div id="edit-modal" class="modal hidden">

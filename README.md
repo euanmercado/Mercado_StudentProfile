@@ -1,18 +1,21 @@
 # Mercado_StudentProfile - Activity 7: Database Integration & Authentication
 
-A responsive Apache Cordova mobile application featuring user authentication, database persistence (IndexedDB), full CRUD operations, and native device camera integration for ITCC 41.
+A responsive Apache Cordova mobile application featuring user authentication, database persistence (IndexedDB), full CRUD operations, multi-tab navigation, and native device camera integration for ITCC 41.
 
 ---
 
 ## 1. Project Description
-This application serves as an interactive, database-driven Student Profile application. It expands upon Activity 6 by replacing plain local storage with an asynchronous database engine, enforcing authentication via a Login page, and allowing full CRUD (Create, Read, Update, Delete) management of student profile records.
+This application serves as an interactive, database-driven Student Profile application. It expands upon Activity 6 by replacing plain local storage with an asynchronous database engine, enforcing authentication via a Login page, and allowing full CRUD (Create, Read, Update, Delete) management of student profile records across a multi-tab interface.
 
 ---
 
 ## 2. Application Pages
 * **Login Page**: Protected gateway requiring Student ID / Email and password authentication before granting profile access.
-* **Student Profile Page**: Primary dashboard displaying database-stored student details (Name, Course, Year Level, Student ID, About Me, Skills, Profile Picture).
-* **Edit Profile Modal**: Form view allowing authenticated users to update their profile information directly in the database.
+* **Profile**: Primary dashboard displaying student details (Name, Course, Year Level, Student ID, Profile Picture, Edit Profile, and Delete Account).
+* **About**: Student biography and academic background details.
+* **Skills**: List of technical competencies retrieved dynamically from the database.
+* **Projects**: Showcase of academic software engineering projects.
+* **Contact**: Official contact information including student email and campus location.
 
 ---
 
@@ -26,7 +29,7 @@ The application enforces strict access control to protect student information:
 
 ## 4. Student Profile Management
 Authenticated students can perform complete profile management:
-* View profile data loaded directly from database stores.
+* View profile data loaded directly from database stores across all 5 navigation tabs.
 * Edit personal details (Name, Course, Year Level, About Me, Skills).
 * Update profile picture using native device camera integration.
 * Terminate sessions using the Logout button.
@@ -72,7 +75,7 @@ Profile changes remain fully persistent across:
 ---
 
 ## 10. Responsive Design
-Styled with a modern dark theme using modern CSS flexbox and media queries to ensure smooth layout adaptation across:
+Styled with a modern dark theme using CSS flexbox, fixed bottom navigation, and media queries to ensure smooth layout adaptation across:
 * Mobile screen devices (emulators and handheld devices).
 * Tablet screens.
 * Desktop browsers.
@@ -86,7 +89,7 @@ Styled with a modern dark theme using modern CSS flexbox and media queries to en
 ---
 
 ## 12. How to Run
-1. Clone Repository: git clone [https://github.com/euanmercado/Mercado_StudentProfile.git](https://github.com/euanmercado/Mercado_StudentProfile.git)
+1. Clone Repository: git clone https://github.com/euanmercado/Mercado_StudentProfile.git
 2. Install Cordova: npm install -g cordova
 3. Add Android Platform: cordova platform add android
 4. Run Application: cordova run android

@@ -96,6 +96,32 @@ function setupEventListeners() {
     document.getElementById('edit-form').addEventListener('submit', handleSaveProfile);
     document.getElementById('btn-change-photo').addEventListener('click', capturePhoto);
     document.getElementById('btn-crud-delete').addEventListener('click', handleDeleteAccount);
+
+    document.querySelectorAll('.nav-item').forEach(button => {
+        button.addEventListener('click', () => {
+            const targetTab = button.getAttribute('data-tab');
+            switchTab(targetTab);
+        });
+    });
+}
+
+function switchTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.add('hidden');
+    });
+    document.querySelectorAll('.nav-item').forEach(nav => {
+        nav.classList.remove('active');
+    });
+
+    const selectedTab = document.getElementById(`tab-${tabName}`);
+    if (selectedTab) {
+        selectedTab.classList.remove('hidden');
+    }
+
+    const activeNav = document.querySelector(`.nav-item[data-tab="${tabName}"]`);
+    if (activeNav) {
+        activeNav.classList.add('active');
+    }
 }
 
 async function handleLogin(e) {
@@ -157,6 +183,8 @@ function showProfileView(student) {
     document.getElementById('view-course-year').textContent = `${student.course} - ${student.yearLevel}`;
     document.getElementById('view-student-id').textContent = `ID: ${student.studentId}`;
     document.getElementById('view-about').textContent = student.about;
+    document.getElementById('view-contact-email').textContent = student.email;
+    document.getElementById('view-contact-id').textContent = student.studentId;
     document.getElementById('profile-img').src = student.profilePicture || "img/profile.jpeg";
 
     const skillsContainer = document.getElementById('view-skills');
@@ -166,6 +194,8 @@ function showProfileView(student) {
         li.textContent = skill.trim();
         skillsContainer.appendChild(li);
     });
+
+    switchTab('profile');
 }
 
 function openEditModal() {
